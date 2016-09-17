@@ -33,20 +33,24 @@ s_entropy = broadcast_p*broadcast_i + not_broadcast_p*not_broadcast_i
 
 # S1
 hosts = {}
-total_who_has_packets = 0
+total_packets = 0
 for pkt in sniffed_packets:
-    if ARP in pkt and pkt.psrc != pkt.pdst and pkt.op == ARP.who_has:
-        total_who_has_packets += 1
+    if ARP in pkt and pkt.op == ARP.who_has and pkt.psrc != pkt.pdst:
+        total_packets += 2
         if pkt.pdst in hosts:
             hosts[pkt.pdst] += 1
         else:
             hosts[pkt.pdst] = 1
+        if pkt.psrc in hosts:
+            hosts[pkt.psrc] += 1
+        else:
+            hosts[pkt.psrc] = 1
 
-host_probability = [p * 1.0 / total_who_has_packets for p in hosts.values()]
-host_information = [-log(p, 2) for p in host_probability]
+host_probability = {h: (hosts[h] * 1.0 / total_packets) for h in hosts.keys()}
+host_information = {h: -log(host_probability[h], 2) for h in hosts.keys()}
 s1_entropy = 0
-for i in range(0, len(host_probability)):
-   s1_entropy += host_probability[i] * host_information[i]
+for h in hosts.keys():
+   s1_entropy += host_probability[h] * host_information[h]
 
 print '\nFuente S'
 print '----------'
@@ -59,5 +63,8 @@ print 'H(S) = ' + str(s_entropy) + ' bits'
 
 print '\nFuente S1'
 print '-----------'
-print 's_i = {Paquete con destino i}'
+print 's_i = {Paquete ARP WHO_HAS con destino u origen host i}'
+# debugging
+#pprint.pprint(hosts)
+#pprint.pprint(host_information)
 print 'H(S) = ' + str(s1_entropy) + ' bits'
