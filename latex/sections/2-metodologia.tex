@@ -1,0 +1,34 @@
+\section{Metodología}
+
+Para realizar los experimentos, utilizamos dos herramientas: \emph{Wireshark},
+una aplicación de código abierto que permite capturar y analizar los paquetes
+que transitan por una red, y \emph{Scapy}, una herramienta escrita en
+Python para manipular y trabajar con los paquetes capturados.
+
+Se capturó todo el tráfico de tres redes redes diferentes, en los tres
+escenarios que se detallan a continuación.
+
+
+En los tres casos, se filtraron los resultados para considerar solo los
+paquetes relativos al protocolo ARP (\emph{Address Resolution Protocol}).
+(Esto capaz queda explicado antes).
+
+Los resultados fueron analizados utilizando conceptos de Teoría de la
+Información. Para esto, en cada caso, se modelaron a partir del tráfico
+capturado las siguientes dos fuentes de información, considerando distintos
+aspectos que se deseaba estudiar:
+
+\begin{enumerate}
+    \item \textbf{Fuente $\mathcal{S}$}. Consta de dos símbolos, $\lbrace
+    s_{\text{BROADCAST}},\ s_{\text{UNICAST}} \rbrace$. Cada paquete ARP
+    capturado en la red se considera un símbolo; aquellos con destino
+    \emph{broadcast} (dirección MAC \texttt{ff:ff:ff:ff:ff:ff}) corresponden
+    al símbolo $s_{\text{BROADCAST}}$, mientras que los demás corresponden
+    al símbolo $s_{\text{UNICAST}}$.
+
+    La probabilidad de la aparición de cada símbolo, y por consiguiente
+    la entropía de la fuente, se calculó en base a la frecuencia relativa
+    de cada uno de ellos.
+    \item \textbf{Fuente $\mathcal{S}_1$}. Esta fuente se modeló teniendo en
+    cuenta las direcciones IP de los paquetes ARP capturados.
+\end{enumerate}

@@ -15,7 +15,14 @@ $(PDF): $(TEX)
 	@ if [ "x$(shell cat .auxmd5)" '!=' "x$(shell md5sum $(@:pdf=aux))" ]; then echo "Relatexing..." 1>&2; rm $@; make $@; fi
 
 clean: clean_aux
-	rm $(PDF).pdf
+	rm -f $(PDF).pdf
 
 clean_aux:
-	rm -f *.aux *.log *.out *.toc *.nav *.snm
+	find . -name "*.aux" -delete \
+	    -o -name "*.log" -delete \
+	    -o -name "*.out" -delete \
+	    -o -name "*.toc" -delete \
+	    -o -name "*.nav" -delete \
+	    -o -name "*.snm" -delete \
+	    -o -name "*.fls" -delete \
+	    -o -name "*.fdb_latexmk" -delete

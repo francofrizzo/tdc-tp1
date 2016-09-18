@@ -7,7 +7,10 @@
 ]{ieee}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
-\usepackage{ieeefig} 
+\usepackage{ieeefig}
+\usepackage{amsmath}
+
+\def\keywordsname{Palabras clave}
 
 \begin{document}
 
@@ -31,26 +34,15 @@
 \end{keywords}
 
 \input{sections/1-introduccion.tex}
+\input{sections/2-metodologia.tex}
 
-\begin{figure}[htb]
-\figdef{figura}
-\caption{Figura de ejemplo.}
-\label{fig-example}
-\end{figure}
+% \begin{figure}[htb]
+% \figdef{figura}
+% \caption{Figura de ejemplo.}
+% \label{fig-example}
+% \end{figure}
 
 \bibliographystyle{IEEEbib}
 \bibliography{informe}
-
-\begin{biography}{Franco Frizzo}
-  es un crack.
-\end{biography}
-
-\begin{biography}{Pablo Montepagano}
-  también es un crack.
-\end{biography}
-
-\begin{biography}{Iván Pondal}
-  es otro crack.
-\end{biography}
 
 \end{document}
