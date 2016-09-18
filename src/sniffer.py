@@ -1,5 +1,5 @@
 #! /usr/bin/env python2
-import sys
+import argparse
 import pprint
 from math import log
 from scapy.all import ARP, Ether, Dot11, sniff
@@ -10,14 +10,17 @@ broadcast_packets = 0
 sniff_count = 0
 pcap_file = None
 
-if len(sys.argv) > 1:
-    # limit amount of packets to be sniffed
-    sniff_count = int(sys.argv[1])
-    if len(sys.argv) > 2:
-        # use a pcap file as input
-        pcap_file = sys.argv[2]
+parser = argparse.ArgumentParser(description='Sniff network packets and generate stats.')
 
-sniffed_packets = sniff(count=sniff_count, offline=pcap_file, store=1)
+parser.add_argument('-f', dest='pcap_file', default=None, help='use pcap capture file')
+parser.add_argument('-c', dest='sniff_count', default=0, type=int,
+                    help='limit number of packets to sniff')
+parser.add_argument('--gack', dest='allow_gratuitous_arp', action='store_true',
+                    help='include gratuitous ARP packets when generating stats')
+
+args = parser.parse_args()
+
+sniffed_packets = sniff(count=args.sniff_count, offline=args.pcap_file, store=1)
 
 # count broadcast messages
 broadcast_packets = len([1 for pkt in sniffed_packets \
@@ -35,16 +38,27 @@ s_entropy = broadcast_p*broadcast_i + not_broadcast_p*not_broadcast_i
 hosts = {}
 total_packets = 0
 for pkt in sniffed_packets:
-    if ARP in pkt and pkt.op == ARP.who_has and pkt.psrc != pkt.pdst:
-        total_packets += 2
-        if pkt.pdst in hosts:
-            hosts[pkt.pdst] += 1
+    if ARP in pkt and pkt.op == ARP.who_has \
+                  and ((not args.allow_gratuitous_arp and pkt.psrc != pkt.pdst) \
+                  or args.allow_gratuitous_arp):
+
+        if args.allow_gratuitous_arp:
+            total_packets += 1
+            if pkt.pdst in hosts:
+                hosts[pkt.pdst] += 1
+            else:
+                hosts[pkt.pdst] = 1
+
         else:
-            hosts[pkt.pdst] = 1
-        if pkt.psrc in hosts:
-            hosts[pkt.psrc] += 1
-        else:
-            hosts[pkt.psrc] = 1
+            total_packets += 2
+            if pkt.pdst in hosts:
+                hosts[pkt.pdst] += 1
+            else:
+                hosts[pkt.pdst] = 1
+            if pkt.psrc in hosts:
+                hosts[pkt.psrc] += 1
+            else:
+                hosts[pkt.psrc] = 1
 
 host_probability = {h: (hosts[h] * 1.0 / total_packets) for h in hosts.keys()}
 host_information = {h: -log(host_probability[h], 2) for h in hosts.keys()}
