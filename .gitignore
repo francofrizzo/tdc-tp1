@@ -14,3 +14,7 @@
 
 # Filesystem in Userspace temp files
 .fuse_hidden*
+
+extra/gephi_network_renderer/.idea/
+extra/gephi_network_renderer/out/
+extra/gephi_network_renderer/gephi_network_renderer.iml
