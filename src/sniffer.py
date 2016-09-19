@@ -17,6 +17,8 @@ parser.add_argument('-c', dest='sniff_count', default=0, type=int,
                     help='limit number of packets to sniff')
 parser.add_argument('--gack', dest='allow_gratuitous_arp', action='store_true',
                     help='include gratuitous ARP packets when generating stats')
+parser.add_argument('--output-graph', dest='graph_file', default=None,
+                    help='network graph output file')
 
 args = parser.parse_args()
 
@@ -37,6 +39,7 @@ s_entropy = broadcast_p*broadcast_i + not_broadcast_p*not_broadcast_i
 # S1
 hosts = {}
 total_packets = 0
+host_arp_network = set()
 for pkt in sniffed_packets:
     if ARP in pkt and pkt.op == ARP.who_has \
                   and ((not args.allow_gratuitous_arp and pkt.psrc != pkt.pdst) \
@@ -48,8 +51,10 @@ for pkt in sniffed_packets:
                 hosts[pkt.pdst] += 1
             else:
                 hosts[pkt.pdst] = 1
-
         else:
+            arp_pair = (pkt.psrc, pkt.pdst)
+            if arp_pair not in host_arp_network and reversed(arp_pair) not in host_arp_network:
+                host_arp_network.add(arp_pair)
             total_packets += 2
             if pkt.pdst in hosts:
                 hosts[pkt.pdst] += 1
@@ -82,3 +87,16 @@ print 's_i = {Paquete ARP WHO_HAS con destino u origen host i}'
 #pprint.pprint(hosts)
 #pprint.pprint(host_information)
 print 'H(S) = ' + str(s1_entropy) + ' bits'
+
+if args.graph_file != None:
+    f_nodes = open(args.graph_file + '_nodes', 'w')
+    f_nodes.write('Id;Label;Weight\n')
+    for h in hosts.keys():
+        f_nodes.write(h + ';"' + h +'";' + str(host_probability[h]) + '\n')
+    f_nodes.close()
+
+    f_edges = open(args.graph_file + '_edges', 'w')
+    f_edges.write('Source;Target;Type\n')
+    for e in host_arp_network:
+        f_edges.write(e[0] + ';' + e[1] + ';Undirected\n')
+    f_edges.close()
