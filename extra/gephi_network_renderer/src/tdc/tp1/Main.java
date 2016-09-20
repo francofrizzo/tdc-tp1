@@ -6,25 +6,15 @@ import org.gephi.appearance.api.Function;
 import org.gephi.appearance.plugin.RankingLabelSizeTransformer;
 import org.gephi.appearance.plugin.RankingNodeSizeTransformer;
 import org.gephi.datalab.api.AttributeColumnsController;
-import org.gephi.graph.api.Column;
-import org.gephi.graph.api.GraphController;
-import org.gephi.graph.api.GraphModel;
-import org.gephi.graph.api.UndirectedGraph;
+import org.gephi.graph.api.*;
 import org.gephi.io.exporter.api.ExportController;
-import org.gephi.layout.plugin.AutoLayout;
-import org.gephi.layout.plugin.forceAtlas.ForceAtlas;
 import org.gephi.layout.plugin.fruchterman.FruchtermanReingold;
-import org.gephi.layout.plugin.random.RandomLayout;
 import org.gephi.preview.api.PreviewController;
 import org.gephi.preview.api.PreviewModel;
 import org.gephi.preview.api.PreviewProperty;
 import org.gephi.preview.types.EdgeColor;
 import org.gephi.project.api.ProjectController;
-import org.gephi.project.api.Workspace;
 import org.openide.util.Lookup;
-import java.util.concurrent.TimeUnit;
-
-
 
 import java.awt.*;
 import java.io.File;
@@ -92,7 +82,7 @@ public class Main {
         Function nodeWeightRanking = appearanceModel.getNodeFunction(graph,
                 nodeWeightColumn, RankingNodeSizeTransformer.class);
         RankingNodeSizeTransformer nodeWeightTransformer = nodeWeightRanking.getTransformer();
-        nodeWeightTransformer.setMinSize(5);
+        nodeWeightTransformer.setMinSize(10);
         nodeWeightTransformer.setMaxSize(50);
         appearanceController.transform(nodeWeightRanking);
 
@@ -105,26 +95,36 @@ public class Main {
         appearanceController.transform(nodeLabelRanking);
 
         // Apply layout
-        AutoLayout autoLayout = new AutoLayout(10, TimeUnit.SECONDS);
-        autoLayout.setGraphModel(graphModel);
         FruchtermanReingold fruchtermanReingold = new FruchtermanReingold(null);
-        fruchtermanReingold.setSpeed(1.0);
-        fruchtermanReingold.setArea(1000.0f);
-        fruchtermanReingold.setGravity(1.0);
-        autoLayout.addLayout(fruchtermanReingold, 1.0f);
-        autoLayout.execute();
+        fruchtermanReingold.resetPropertiesValues();
+        fruchtermanReingold.setGraphModel(graphModel);
+        fruchtermanReingold.setSpeed(1.0d);
+        fruchtermanReingold.setArea(500.0f);
+        fruchtermanReingold.setGravity(3.0d);
+
+        fruchtermanReingold.initAlgo();
+
+        int iterations = (int)Math.pow(graph.getNodeCount(), 2);
+
+        for(int i = 0; i < iterations && fruchtermanReingold.canAlgo(); i++) {
+            fruchtermanReingold.goAlgo();
+        }
+        fruchtermanReingold.endAlgo();
+
+        for (Node n: graph.getNodes()) {
+            n.setColor(Color.LIGHT_GRAY);
+        }
 
         // Preview
         model.getProperties().putValue(PreviewProperty.SHOW_NODE_LABELS, Boolean.TRUE);
-        model.getProperties().putValue(PreviewProperty.EDGE_COLOR, new EdgeColor(Color.GRAY));
+        model.getProperties().putValue(PreviewProperty.EDGE_COLOR, new EdgeColor(Color.LIGHT_GRAY));
         model.getProperties().putValue(PreviewProperty.EDGE_CURVED, Boolean.FALSE);
         model.getProperties().putValue(PreviewProperty.EDGE_THICKNESS, new Float(0.1f));
-        model.getProperties().putValue(PreviewProperty.NODE_LABEL_FONT, model.getProperties().getFontValue(PreviewProperty.NODE_LABEL_FONT).deriveFont(8));
 
         // Export
         ExportController ec = Lookup.getDefault().lookup(ExportController.class);
         try {
-            ec.exportFile(new File("headless_simple.pdf"));
+            ec.exportFile(new File(inputFile + ".pdf"));
         } catch (IOException ex) {
             ex.printStackTrace();
             return;
