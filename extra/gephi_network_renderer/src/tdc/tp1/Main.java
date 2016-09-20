@@ -25,8 +25,8 @@ public class Main {
 
     public static void main(String[] args) {
         String inputFile = args[0];
-        String edgesInputFile = inputFile + "_edges";
-        String nodesInputFile = inputFile + "_nodes";
+        String edgesInputFile = inputFile + "_edges.csv";
+        String nodesInputFile = inputFile + "_nodes.csv";
 
         //Init a project - and therefore a workspace
         ProjectController pc = Lookup.getDefault().lookup(ProjectController.class);

@@ -89,13 +89,13 @@ print 's_i = {Paquete ARP WHO_HAS con destino u origen host i}'
 print 'H(S) = ' + str(s1_entropy) + ' bits'
 
 if args.graph_file != None:
-    f_nodes = open(args.graph_file + '_nodes', 'w')
+    f_nodes = open(args.graph_file + '_nodes.csv', 'w')
     f_nodes.write('Id;Label;Weight\n')
     for h in hosts.keys():
         f_nodes.write(h + ';"' + h +'";' + str(host_probability[h]) + '\n')
     f_nodes.close()
 
-    f_edges = open(args.graph_file + '_edges', 'w')
+    f_edges = open(args.graph_file + '_edges.csv', 'w')
     f_edges.write('Source;Target;Type\n')
     for e in host_arp_network:
         f_edges.write(e[0] + ';' + e[1] + ';Undirected\n')
