@@ -9,13 +9,13 @@ TEXFLAGS=-file-line-error -interaction=nonstopmode
 all: $(PDF)
 
 $(PDF): $(TEX)
-	@ [ ! -f $(@:pdf=aux) ] || md5sum $(@:pdf=aux) > .auxmd5
-	# [ ! -f $(@:pdf=aux) ] || bibtex $(@:pdf=aux)
+	@ [ ! -f $(PDF).aux ] || md5sum $(PDF).aux > .auxmd5
+	# [ ! -f $(PDF).aux ] || bibtex $(PDF).aux
 	@ pdflatex $(TEXFLAGS) -jobname $(PDF) $<
-	@ if [ "x$(shell cat .auxmd5)" '!=' "x$(shell md5sum $(@:pdf=aux))" ]; then echo "Relatexing..." 1>&2; rm $@; make $@; fi
+	@ if [ "x$(shell cat .auxmd5)" '!=' "x$(shell md5sum $(PDF).aux)" ]; then echo "Relatexing..." 1>&2; rm $@.pdf; make $@; fi
 
 clean: clean_aux
-	rm -f $(PDF).pdf
+	rm -f $(PDF)
 
 clean_aux:
 	find . -name "*.aux" -delete \

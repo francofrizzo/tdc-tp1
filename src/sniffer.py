@@ -1,6 +1,7 @@
 #! /usr/bin/env python2
 import argparse
 import pprint
+import operator
 from math import log
 from scapy.all import ARP, Ether, Dot11, sniff
 
@@ -19,6 +20,10 @@ parser.add_argument('--gack', dest='allow_gratuitous_arp', action='store_true',
                     help='include gratuitous ARP packets when generating stats')
 parser.add_argument('--output-graph', dest='graph_file', default=None,
                     help='network graph output file')
+parser.add_argument('--output-information', dest='information_file', default=None,
+                    help='host information output file')
+parser.add_argument('--output-entropy', dest='entropy_file', default=None,
+                    help='network entropy output file')
 
 args = parser.parse_args()
 
@@ -100,3 +105,17 @@ if args.graph_file != None:
     for e in host_arp_network:
         f_edges.write(e[0] + ';' + e[1] + ';Undirected\n')
     f_edges.close()
+
+if args.entropy_file != None:
+    file = open(args.entropy_file, 'w')
+    file.write(str(s1_entropy) + '\n')
+    file.close()
+
+if args.information_file != None:
+    file = open(args.information_file, 'w')
+    file.write('X-Pos IP Information\n')
+    idx = 0
+    for h, i in sorted(host_information.iteritems(), key=operator.itemgetter(1)):
+        file.write(str(idx) + ' ' + h + ' ' + str(i) + '\n')
+        idx = idx + 1
+    file.close()

@@ -1,0 +1,138 @@
+\section{Resultados}
+
+
+\newread\tmp
+\openin\tmp=../exp/shopping_0.entropy
+\read\tmp to \ShoppingAEntropy
+\closein\tmp
+
+\openin\tmp=../exp/shopping_1.entropy
+\read\tmp to \ShoppingBEntropy
+\closein\tmp
+
+\openin\tmp=../exp/starbucks_0.entropy
+\read\tmp to \StarbucksEntropy
+\closein\tmp
+
+\openin\tmp=../exp/wired_lan_0.entropy
+\read\tmp to \WiredLanEntropy
+\closein\tmp
+
+\subsection{Escenario 1 (Red cableada)}
+
+\begin{tikzpicture}[baseline]
+    \begin{axis}[
+            title={},
+            xlabel={Símbolo (Dirección IP)},
+            ylabel={Cantidad de información},
+            scaled x ticks=false,
+            scaled y ticks=false,
+            width=0.45\textwidth,
+            height=0.35\textwidth,
+            legend pos=outer north east,
+            legend cell align=left,
+            ymin=0,
+            xtick=data,
+            xticklabels from table={../exp/wired_lan_0.information}{IP},
+            x tick label style={rotate=80,anchor=east,font=\small}
+        ]
+        \addplot [ybar, fill=blue!10, draw=blue] table[x=X-Pos,y=Information]
+                {../exp/wired_lan_0.information};
+
+        \coordinate (A) at (axis cs:0,\WiredLanEntropy);
+        \coordinate (O1) at (rel axis cs:0,0);
+        \coordinate (O2) at (rel axis cs:1,0);
+
+        \draw [blue, thick] (A -| O1) -- (A -| O2);
+
+    \end{axis}
+\end{tikzpicture}
+
+\subsection{Escenario 2 (\emph{Shopping})}
+
+\begin{tikzpicture}[baseline]
+    \begin{axis}[
+            title={},
+            xlabel={Símbolo (Dirección IP)},
+            ylabel={Cantidad de información},
+            scaled x ticks=false,
+            scaled y ticks=false,
+            width=0.45\textwidth,
+            height=0.35\textwidth,
+            legend pos=outer north east,
+            legend cell align=left,
+            ymin=0,
+            xtick=data,
+            xticklabels from table={../exp/shopping_0.information}{IP},
+            x tick label style={rotate=80,anchor=east,font=\small}
+        ]
+        \addplot [ybar, fill=blue!10, draw=blue] table[x=X-Pos,y=Information]
+                {../exp/shopping_0.information};
+
+        \coordinate (A) at (axis cs:0,\ShoppingAEntropy);
+        \coordinate (O1) at (rel axis cs:0,0);
+        \coordinate (O2) at (rel axis cs:1,0);
+
+        \draw [blue, thick] (A -| O1) -- (A -| O2);
+
+    \end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}[baseline]
+    \begin{axis}[
+            title={},
+            xlabel={Símbolo (Dirección IP)},
+            ylabel={Cantidad de información},
+            scaled x ticks=false,
+            scaled y ticks=false,
+            width=0.45\textwidth,
+            height=0.35\textwidth,
+            legend pos=outer north east,
+            legend cell align=left,
+            ymin=0,
+            xtick=data,
+            xticklabels from table={../exp/shopping_1.information}{IP},
+            x tick label style={rotate=80,anchor=east,font=\small}
+        ]
+        \addplot [ybar, fill=blue!10, draw=blue] table[x=X-Pos,y=Information]
+                {../exp/shopping_1.information};
+
+        \coordinate (A) at (axis cs:0,\ShoppingBEntropy);
+        \coordinate (O1) at (rel axis cs:0,0);
+        \coordinate (O2) at (rel axis cs:1,0);
+
+        \draw [blue, thick] (A -| O1) -- (A -| O2);
+
+    \end{axis}
+\end{tikzpicture}
+
+\subsection{Escenario 3 (\emph{Starbucks})}
+
+\begin{tikzpicture}[baseline]
+    \begin{axis}[
+            title={},
+            xlabel={Símbolo (Dirección IP)},
+            ylabel={Cantidad de información},
+            scaled x ticks=false,
+            scaled y ticks=false,
+            width=0.45\textwidth,
+            height=0.35\textwidth,
+            legend pos=outer north east,
+            legend cell align=left,
+            ymin=0,
+            xtick=data,
+            xticklabels from table={../exp/starbucks_0.information}{IP},
+            x tick label style={rotate=80,anchor=east,font=\small}
+        ]
+        \addplot [ybar, fill=blue!10, draw=blue] table[x=X-Pos,y=Information]
+                {../exp/starbucks_0.information};
+
+        \coordinate (A) at (axis cs:0,\StarbucksEntropy);
+        \coordinate (O1) at (rel axis cs:0,0);
+        \coordinate (O2) at (rel axis cs:1,0);
+
+        \draw [blue, thick] (A -| O1) -- (A -| O2);
+
+    \end{axis}
+\end{tikzpicture}
+

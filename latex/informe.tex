@@ -5,9 +5,10 @@
     inline,
     twoside,
 ]{ieee}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
-\usepackage{ieeefig}
 \usepackage{amsmath}
 
 \def\keywordsname{Palabras clave}
@@ -33,14 +34,15 @@
 [palabra clave 1, palabra clave 2, palabra clave 3]
 \end{keywords}
 
-\input{sections/1-introduccion.tex}
-\input{sections/2-metodologia.tex}
-
 % \begin{figure}[htb]
 % \figdef{figura}
 % \caption{Figura de ejemplo.}
 % \label{fig-example}
-% \end{figure}
+% % \end{figure}Z
+
+\input{sections/1-introduccion.tex}
+\input{sections/2-metodologia.tex}
+\input{sections/3-resultados.tex}
 
 \bibliographystyle{IEEEbib}
 \bibliography{informe}
