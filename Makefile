@@ -1,4 +1,4 @@
-CAPTURE_FILES=data/wired_lan# shopping starbucks
+CAPTURE_FILES=data/wired_lan data/shopping data/starbucks
 CAPTURE_PDF=$(addsuffix .pdf, $(CAPTURE_FILES))
 
 .PHONY: all clean
