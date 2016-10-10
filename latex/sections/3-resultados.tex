@@ -2,15 +2,15 @@
 
 
 \newread\tmp
-\openin\tmp=../exp/shopping_0.entropy
+\openin\tmp=../exp/shopping.entropy
 \read\tmp to \ShoppingAEntropy
 \closein\tmp
 
-\openin\tmp=../exp/starbucks_0.entropy
+\openin\tmp=../exp/starbucks.entropy
 \read\tmp to \StarbucksEntropy
 \closein\tmp
 
-\openin\tmp=../exp/wired_lan_0.entropy
+\openin\tmp=../exp/wired_lan.entropy
 \read\tmp to \WiredLanEntropy
 \closein\tmp
 
@@ -29,11 +29,11 @@
             legend cell align=left,
             ymin=0,
             xtick=data,
-            xticklabels from table={../exp/wired_lan_0.information}{IP},
+            xticklabels from table={../exp/wired_lan.information}{IP},
             x tick label style={rotate=80,anchor=east,font=\small}
         ]
         \addplot [ybar, fill=blue!10, draw=blue] table[x=X-Pos,y=Information]
-                {../exp/wired_lan_0.information};
+                {../exp/wired_lan.information};
 
         \coordinate (A) at (axis cs:0,\WiredLanEntropy);
         \coordinate (O1) at (rel axis cs:0,0);
@@ -64,11 +64,14 @@
             legend cell align=left,
             ymin=0,
             xtick=data,
-            xticklabels from table={../exp/shopping_0.information}{IP},
+            xticklabels from table={../exp/shopping.information}{IP},
             x tick label style={rotate=80,anchor=east,font=\small}
         ]
-        \addplot [ybar, fill=blue!10, draw=blue] table[x=X-Pos,y=Information]
-                {../exp/shopping_0.information};
+        \addplot [
+            ybar,
+            fill=blue!10,
+            draw=blue]
+            table[x=X-Pos,y=Information]{../exp/shopping.information};
 
         \coordinate (A) at (axis cs:0,\ShoppingAEntropy);
         \coordinate (O1) at (rel axis cs:0,0);
@@ -99,11 +102,11 @@
             legend cell align=left,
             ymin=0,
             xtick=data,
-            xticklabels from table={../exp/starbucks_0.information}{IP},
+            xticklabels from table={../exp/starbucks.information}{IP},
             x tick label style={rotate=80,anchor=east,font=\small}
         ]
         \addplot [ybar, fill=blue!10, draw=blue] table[x=X-Pos,y=Information]
-                {../exp/starbucks_0.information};
+                {../exp/starbucks.information};
 
         \coordinate (A) at (axis cs:0,\StarbucksEntropy);
         \coordinate (O1) at (rel axis cs:0,0);
