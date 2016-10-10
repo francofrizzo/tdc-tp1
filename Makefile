@@ -10,4 +10,4 @@ clean:
 
 $(CAPTURE_PDF):
 	./src/sniffer.py -f $(subst pdf,pcap,$@) --output-graph $(subst .pdf,,$@)
-	java -jar extra/gephi_network_renderer.jar $(subst .pdf,,$@)
+	java -jar tools/gephi_network_renderer.jar $(subst .pdf,,$@)
