@@ -11,4 +11,5 @@ Finalmente ejecutar:
 
         make
 
-El mismo generará las figuras correspondientes en la carpeta `data`.
+El mismo generará toda la información y gráficos necesarios para compilar el
+informe.
