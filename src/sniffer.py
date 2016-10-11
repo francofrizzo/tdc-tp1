@@ -115,8 +115,8 @@ if args.output_files_prefix != None:
     # information files
     file = open(args.output_files_prefix + '.s.information', 'w')
     file.write('IsBroadcast Information\n')
-    file.write('0 ' + str(broadcast_i) + '\n')
-    file.write('1 ' + str(not_broadcast_i) + '\n')
+    file.write('0 ' + str(not_broadcast_i) + '\n')
+    file.write('1 ' + str(broadcast_i) + '\n')
     file.close()
 
     file = open(args.output_files_prefix + '.s1.information', 'w')
