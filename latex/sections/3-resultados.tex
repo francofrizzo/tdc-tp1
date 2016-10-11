@@ -2,15 +2,15 @@
 
 
 \newread\tmp
-\openin\tmp=../exp/shopping.entropy
+\openin\tmp=../exp/shopping.s1.entropy
 \read\tmp to \ShoppingAEntropy
 \closein\tmp
 
-\openin\tmp=../exp/starbucks.entropy
+\openin\tmp=../exp/starbucks.s1.entropy
 \read\tmp to \StarbucksEntropy
 \closein\tmp
 
-\openin\tmp=../exp/wired_lan.entropy
+\openin\tmp=../exp/wired_lan.s1.entropy
 \read\tmp to \WiredLanEntropy
 \closein\tmp
 
@@ -29,11 +29,15 @@
             legend cell align=left,
             ymin=0,
             xtick=data,
-            xticklabels from table={../exp/wired_lan.information}{IP},
+            xticklabels from table={../exp/wired_lan.s1.information}{IP},
             x tick label style={rotate=80,anchor=east,font=\small}
         ]
-        \addplot [ybar, fill=blue!10, draw=blue] table[x=X-Pos,y=Information]
-                {../exp/wired_lan.information};
+        \addplot [
+                ybar,
+                fill=blue!10,
+                draw=blue,
+                select coords between index={0}{20}
+            ] table[x=X-Pos,y=Information]{../exp/wired_lan.s1.information};
 
         \coordinate (A) at (axis cs:0,\WiredLanEntropy);
         \coordinate (O1) at (rel axis cs:0,0);
@@ -45,8 +49,8 @@
 \end{tikzpicture}
 
 \begin{figure}[H]
-	\includegraphics[scale=0.4]{figures/wired_lan.pdf}
-	\caption{Red de mensajes \texttt{ARP} para captura de red cableada.}
+    \includegraphics[scale=0.4]{figures/wired_lan.pdf}
+    \caption{Red de mensajes \texttt{ARP} para captura de red cableada.}
 \end{figure}
 
 \subsection{Escenario 2 (\emph{Shopping})}
@@ -64,14 +68,15 @@
             legend cell align=left,
             ymin=0,
             xtick=data,
-            xticklabels from table={../exp/shopping.information}{IP},
+            xticklabels from table={../exp/shopping.s1.information}{IP},
             x tick label style={rotate=80,anchor=east,font=\small}
         ]
-        \addplot [
-            ybar,
-            fill=blue!10,
-            draw=blue]
-            table[x=X-Pos,y=Information]{../exp/shopping.information};
+        \addplot[
+                ybar,
+                fill=blue!10,
+                draw=blue,
+                select coords between index={0}{20}
+            ] table[x=X-Pos,y=Information]{../exp/shopping.s1.information};
 
         \coordinate (A) at (axis cs:0,\ShoppingAEntropy);
         \coordinate (O1) at (rel axis cs:0,0);
@@ -102,11 +107,11 @@
             legend cell align=left,
             ymin=0,
             xtick=data,
-            xticklabels from table={../exp/starbucks.information}{IP},
+            xticklabels from table={../exp/starbucks.s1.information}{IP},
             x tick label style={rotate=80,anchor=east,font=\small}
         ]
         \addplot [ybar, fill=blue!10, draw=blue] table[x=X-Pos,y=Information]
-                {../exp/starbucks.information};
+                {../exp/starbucks.s1.information};
 
         \coordinate (A) at (axis cs:0,\StarbucksEntropy);
         \coordinate (O1) at (rel axis cs:0,0);

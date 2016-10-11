@@ -16,14 +16,10 @@ parser = argparse.ArgumentParser(description='Sniff network packets and generate
 parser.add_argument('-f', dest='pcap_file', default=None, help='use pcap capture file')
 parser.add_argument('-c', dest='sniff_count', default=0, type=int,
                     help='limit number of packets to sniff')
+parser.add_argument('-o', dest='output_files_prefix', default=None,
+                    help='output all information using OUTPUT_FILES_PREFIX as filename prefix')
 parser.add_argument('--gack', dest='allow_gratuitous_arp', action='store_true',
                     help='include gratuitous ARP packets when generating stats')
-parser.add_argument('--output-graph', dest='graph_file', default=None,
-                    help='network graph output file')
-parser.add_argument('--output-information', dest='information_file', default=None,
-                    help='host information output file')
-parser.add_argument('--output-entropy', dest='entropy_file', default=None,
-                    help='network entropy output file')
 
 args = parser.parse_args()
 
@@ -93,26 +89,37 @@ print 's_i = {Paquete ARP WHO_HAS con destino u origen host i}'
 #pprint.pprint(host_information)
 print 'H(S) = ' + str(s1_entropy) + ' bits'
 
-if args.graph_file != None:
-    f_nodes = open(args.graph_file + '_nodes.csv', 'w')
+if args.output_files_prefix != None:
+    # graph files
+    f_nodes = open(args.output_files_prefix + '_nodes.csv', 'w')
     f_nodes.write('Id;Label;Weight\n')
     for h in hosts.keys():
         f_nodes.write(h + ';"' + h +'";' + str(host_probability[h]) + '\n')
     f_nodes.close()
 
-    f_edges = open(args.graph_file + '_edges.csv', 'w')
+    f_edges = open(args.output_files_prefix + '_edges.csv', 'w')
     f_edges.write('Source;Target;Type\n')
     for e in host_arp_network:
         f_edges.write(e[0] + ';' + e[1] + ';Undirected\n')
     f_edges.close()
 
-if args.entropy_file != None:
-    file = open(args.entropy_file, 'w')
+    # entropy files
+    file = open(args.output_files_prefix + '.s.entropy', 'w')
+    file.write(str(s_entropy) + '\n')
+    file.close()
+
+    file = open(args.output_files_prefix + '.s1.entropy', 'w')
     file.write(str(s1_entropy) + '\n')
     file.close()
 
-if args.information_file != None:
-    file = open(args.information_file, 'w')
+    # information files
+    file = open(args.output_files_prefix + '.s.information', 'w')
+    file.write('IsBroadcast Information\n')
+    file.write('0 ' + str(broadcast_i) + '\n')
+    file.write('1 ' + str(not_broadcast_i) + '\n')
+    file.close()
+
+    file = open(args.output_files_prefix + '.s1.information', 'w')
     file.write('X-Pos IP Information\n')
     idx = 0
     for h, i in sorted(host_information.iteritems(), key=operator.itemgetter(1)):

@@ -20,11 +20,13 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.file.Paths;
 
 public class Main {
 
     public static void main(String[] args) {
         String inputFile = args[0];
+        String outputFile = args[1] + Paths.get(args[0]).getFileName().toString();
         String edgesInputFile = inputFile + "_edges.csv";
         String nodesInputFile = inputFile + "_nodes.csv";
 
@@ -124,7 +126,7 @@ public class Main {
         // Export
         ExportController ec = Lookup.getDefault().lookup(ExportController.class);
         try {
-            ec.exportFile(new File(inputFile + ".pdf"));
+            ec.exportFile(new File(outputFile + ".pdf"));
         } catch (IOException ex) {
             ex.printStackTrace();
             return;
