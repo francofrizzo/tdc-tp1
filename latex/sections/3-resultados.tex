@@ -1,20 +1,69 @@
 \section{Resultados}
 
-
 \newread\tmp
+
+\openin\tmp=../exp/shopping.s.entropy
+\read\tmp to \ShoppingSEntropy
+\closein\tmp
+
 \openin\tmp=../exp/shopping.s1.entropy
-\read\tmp to \ShoppingAEntropy
+\read\tmp to \ShoppingSOneEntropy
+\closein\tmp
+
+\openin\tmp=../exp/starbucks.s.entropy
+\read\tmp to \StarbucksSEntropy
 \closein\tmp
 
 \openin\tmp=../exp/starbucks.s1.entropy
-\read\tmp to \StarbucksEntropy
+\read\tmp to \StarbucksSOneEntropy
+\closein\tmp
+
+\openin\tmp=../exp/wired_lan.s.entropy
+\read\tmp to \WiredLanSEntropy
 \closein\tmp
 
 \openin\tmp=../exp/wired_lan.s1.entropy
-\read\tmp to \WiredLanEntropy
+\read\tmp to \WiredLanSOneEntropy
 \closein\tmp
 
 \subsection{Escenario 1 (Red cableada)}
+
+\begin{tikzpicture}[baseline]
+    \begin{axis}[
+            title={},
+            xlabel={Símbolo (Destino)},
+            ylabel={Cantidad de información},
+            scaled x ticks=false,
+            scaled y ticks=false,
+            width=0.45\textwidth,
+            height=0.35\textwidth,
+            bar width=2cm,
+            legend pos=outer north east,
+            legend cell align=left,
+            ymin=0,
+            enlarge x limits=0.75,
+            xtick=data,
+            xticklabels={$S_{\texttt{BROADCAST}}$, $S_{\texttt{UNICAST}}$},
+            x tick label style={rotate=80,anchor=east,font=\small}
+        ]
+        \addplot[
+                ybar,
+                fill=blue!10,
+                draw=blue,
+            ] table[x=IsBroadcast,y=Information]{../exp/wired_lan.s.information};
+
+        \coordinate (A) at (axis cs:0,\WiredLanSEntropy);
+        \coordinate (O1) at (rel axis cs:0,0);
+        \coordinate (O2) at (rel axis cs:1,0);
+
+        \draw [blue, thick] (A -| O1) -- (A -| O2);
+
+        \coordinate (B) at (axis cs:0,1);
+
+        \draw [blue, thick, dashed] (B -| O1) -- (B -| O2);
+
+    \end{axis}
+\end{tikzpicture}
 
 \begin{tikzpicture}[baseline]
     \begin{axis}[
@@ -39,7 +88,7 @@
                 select coords between index={0}{20}
             ] table[x=X-Pos,y=Information]{../exp/wired_lan.s1.information};
 
-        \coordinate (A) at (axis cs:0,\WiredLanEntropy);
+        \coordinate (A) at (axis cs:0,\WiredLanSOneEntropy);
         \coordinate (O1) at (rel axis cs:0,0);
         \coordinate (O2) at (rel axis cs:1,0);
 
@@ -54,6 +103,43 @@
 \end{figure}
 
 \subsection{Escenario 2 (\emph{Shopping})}
+
+\begin{tikzpicture}[baseline]
+    \begin{axis}[
+            title={},
+            xlabel={Símbolo (Destino)},
+            ylabel={Cantidad de información},
+            scaled x ticks=false,
+            scaled y ticks=false,
+            width=0.45\textwidth,
+            height=0.35\textwidth,
+            bar width=2cm,
+            legend pos=outer north east,
+            legend cell align=left,
+            ymin=0,
+            enlarge x limits=0.75,
+            xtick=data,
+            xticklabels={$S_{\texttt{BROADCAST}}$, $S_{\texttt{UNICAST}}$},
+            x tick label style={rotate=80,anchor=east,font=\small}
+        ]
+        \addplot[
+                ybar,
+                fill=blue!10,
+                draw=blue,
+            ] table[x=IsBroadcast,y=Information]{../exp/shopping.s.information};
+
+        \coordinate (A) at (axis cs:0,\ShoppingSEntropy);
+        \coordinate (O1) at (rel axis cs:0,0);
+        \coordinate (O2) at (rel axis cs:1,0);
+
+        \draw [blue, thick] (A -| O1) -- (A -| O2);
+
+        \coordinate (B) at (axis cs:0,1);
+
+        \draw [blue, thick, dashed] (B -| O1) -- (B -| O2);
+
+    \end{axis}
+\end{tikzpicture}
 
 \begin{tikzpicture}[baseline]
     \begin{axis}[
@@ -78,7 +164,7 @@
                 select coords between index={0}{20}
             ] table[x=X-Pos,y=Information]{../exp/shopping.s1.information};
 
-        \coordinate (A) at (axis cs:0,\ShoppingAEntropy);
+        \coordinate (A) at (axis cs:0,\ShoppingSOneEntropy);
         \coordinate (O1) at (rel axis cs:0,0);
         \coordinate (O2) at (rel axis cs:1,0);
 
@@ -88,11 +174,48 @@
 \end{tikzpicture}
 
 \begin{figure}[H]
-	\includegraphics[scale=0.4]{figures/shopping.pdf}
-	\caption{Red de mensajes \texttt{ARP} para captura del shopping.}
+    \includegraphics[scale=0.4]{figures/shopping.pdf}
+    \caption{Red de mensajes \texttt{ARP} para captura del shopping.}
 \end{figure}
 
 \subsection{Escenario 3 (\emph{Starbucks})}
+
+\begin{tikzpicture}[baseline]
+    \begin{axis}[
+            title={},
+            xlabel={Símbolo (Destino)},
+            ylabel={Cantidad de información},
+            scaled x ticks=false,
+            scaled y ticks=false,
+            width=0.45\textwidth,
+            height=0.35\textwidth,
+            bar width=2cm,
+            legend pos=outer north east,
+            legend cell align=left,
+            ymin=0,
+            enlarge x limits=0.75,
+            xtick=data,
+            xticklabels={$S_{\texttt{BROADCAST}}$, $S_{\texttt{UNICAST}}$},
+            x tick label style={rotate=80,anchor=east,font=\small}
+        ]
+        \addplot[
+                ybar,
+                fill=blue!10,
+                draw=blue,
+            ] table[x=IsBroadcast,y=Information]{../exp/starbucks.s.information};
+
+        \coordinate (A) at (axis cs:0,\ShoppingSEntropy);
+        \coordinate (O1) at (rel axis cs:0,0);
+        \coordinate (O2) at (rel axis cs:1,0);
+
+        \draw [blue, thick] (A -| O1) -- (A -| O2);
+
+        \coordinate (B) at (axis cs:0,1);
+
+        \draw [blue, thick, dashed] (B -| O1) -- (B -| O2);
+
+    \end{axis}
+\end{tikzpicture}
 
 \begin{tikzpicture}[baseline]
     \begin{axis}[
@@ -113,7 +236,7 @@
         \addplot [ybar, fill=blue!10, draw=blue] table[x=X-Pos,y=Information]
                 {../exp/starbucks.s1.information};
 
-        \coordinate (A) at (axis cs:0,\StarbucksEntropy);
+        \coordinate (A) at (axis cs:0,\StarbucksSOneEntropy);
         \coordinate (O1) at (rel axis cs:0,0);
         \coordinate (O2) at (rel axis cs:1,0);
 
@@ -123,6 +246,6 @@
 \end{tikzpicture}
 
 \begin{figure}[H]
-	\includegraphics[scale=0.4]{figures/starbucks.pdf}
-	\caption{Red de mensajes \texttt{ARP} para captura del Starbucks.}
+    \includegraphics[scale=0.4]{figures/starbucks.pdf}
+    \caption{Red de mensajes \texttt{ARP} para captura del Starbucks.}
 \end{figure}
