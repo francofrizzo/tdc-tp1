@@ -46,7 +46,7 @@ for pkt in sniffed_packets:
                   and ((not args.allow_gratuitous_arp and pkt.psrc != pkt.pdst) \
                   or args.allow_gratuitous_arp):
 
-        if args.allow_gratuitous_arp:
+        if pkt.psrc == pkt.pdst:
             total_packets += 1
             if pkt.pdst in hosts:
                 hosts[pkt.pdst] += 1
