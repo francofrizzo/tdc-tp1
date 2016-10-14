@@ -38,30 +38,26 @@
             width=0.45\textwidth,
             height=0.35\textwidth,
             bar width=2cm,
-            legend pos=outer north east,
-            legend cell align=left,
             ymin=0,
-            enlarge x limits=0.75,
+            enlarge x limits=0.65,
             xtick=data,
-            xticklabels={$S_{\texttt{UNICAST}}$, $S_{\texttt{BROADCAST}}$},
-            x tick label style={rotate=80,anchor=east,font=\small}
+            major tick length=0,
+            xticklabels={$s_{\texttt{UNICAST}}$, $s_{\texttt{BROADCAST}}$},
+            x tick label style={rotate=80,anchor=east,font=\small},
+            legend entries={$H(\mathcal{S})$,$H_{\max}(\mathcal{S})$},
+            legend style={
+                legend cell align=left,
+                legend pos=north east
+            }
         ]
         \addplot[
                 ybar,
                 fill=blue!10,
                 draw=blue,
+                forget plot
             ] table[x=IsBroadcast,y=Information]{../exp/wired_lan.s.information};
-
-        \coordinate (A) at (axis cs:0,\WiredLanSEntropy);
-        \coordinate (O1) at (rel axis cs:0,0);
-        \coordinate (O2) at (rel axis cs:1,0);
-
-        \draw [blue, thick] (A -| O1) -- (A -| O2);
-
-        \coordinate (B) at (axis cs:0,1);
-
-        \draw [blue, thick, dashed] (B -| O1) -- (B -| O2);
-
+        \addplot[mark=none, blue, thick, update limits=false] {\WiredLanSEntropy};
+        \addplot[mark=none, blue, thick, dashed, update limits=false] {1};
     \end{axis}
 \end{tikzpicture}
 
@@ -114,30 +110,26 @@
             width=0.45\textwidth,
             height=0.35\textwidth,
             bar width=2cm,
-            legend pos=outer north east,
-            legend cell align=left,
             ymin=0,
-            enlarge x limits=0.75,
+            enlarge x limits=0.65,
             xtick=data,
-            xticklabels={$S_{\texttt{UNICAST}}$, $S_{\texttt{BROADCAST}}$},
-            x tick label style={rotate=80,anchor=east,font=\small}
+            major tick length=0,
+            xticklabels={$s_{\texttt{UNICAST}}$, $s_{\texttt{BROADCAST}}$},
+            x tick label style={rotate=80,anchor=east,font=\small},
+            legend entries={$H(\mathcal{S})$,$H_{\max}(\mathcal{S})$},
+            legend style={
+                legend cell align=left,
+                legend pos=north west
+            }
         ]
         \addplot[
                 ybar,
                 fill=blue!10,
                 draw=blue,
+                forget plot
             ] table[x=IsBroadcast,y=Information]{../exp/shopping.s.information};
-
-        \coordinate (A) at (axis cs:0,\ShoppingSEntropy);
-        \coordinate (O1) at (rel axis cs:0,0);
-        \coordinate (O2) at (rel axis cs:1,0);
-
-        \draw [blue, thick] (A -| O1) -- (A -| O2);
-
-        \coordinate (B) at (axis cs:0,1);
-
-        \draw [blue, thick, dashed] (B -| O1) -- (B -| O2);
-
+        \addplot[mark=none, blue, thick, update limits=false] {\ShoppingSEntropy};
+        \addplot[mark=none, blue, thick, dashed, update limits=false] {1};
     \end{axis}
 \end{tikzpicture}
 
@@ -190,30 +182,26 @@
             width=0.45\textwidth,
             height=0.35\textwidth,
             bar width=2cm,
-            legend pos=outer north east,
-            legend cell align=left,
             ymin=0,
-            enlarge x limits=0.75,
+            enlarge x limits=0.65,
             xtick=data,
-            xticklabels={$S_{\texttt{UNICAST}}$, $S_{\texttt{BROADCAST}}$},
-            x tick label style={rotate=80,anchor=east,font=\small}
+            major tick length=0,
+            xticklabels={$s_{\texttt{UNICAST}}$, $s_{\texttt{BROADCAST}}$},
+            x tick label style={rotate=80,anchor=east,font=\small},
+            legend entries={$H(\mathcal{S})$,$H_{\max}(\mathcal{S})$},
+            legend style={
+                legend cell align=left,
+                legend pos=north west
+            }
         ]
         \addplot[
                 ybar,
                 fill=blue!10,
                 draw=blue,
+                forget plot
             ] table[x=IsBroadcast,y=Information]{../exp/starbucks.s.information};
-
-        \coordinate (A) at (axis cs:0,\ShoppingSEntropy);
-        \coordinate (O1) at (rel axis cs:0,0);
-        \coordinate (O2) at (rel axis cs:1,0);
-
-        \draw [blue, thick] (A -| O1) -- (A -| O2);
-
-        \coordinate (B) at (axis cs:0,1);
-
-        \draw [blue, thick, dashed] (B -| O1) -- (B -| O2);
-
+        \addplot[mark=none, blue, thick, update limits=false] {\StarbucksSEntropy};
+        \addplot[mark=none, blue, thick, dashed, update limits=false] {1};
     \end{axis}
 \end{tikzpicture}
 
