@@ -601,20 +601,20 @@
 % Reset baselinestretch within floats.
 % Originally stolen from Stanford University thesis style.
 % --------------------------------------------------------
-\def\@xfloat#1[#2]{\ifhmode \@bsphack\@floatpenalty -\@Mii\else
-    \@floatpenalty-\@Miii\fi\def\@captype{#1}\ifinner
-      \@parmoderr\@floatpenalty\z@
-     \else\@next\@currbox\@freelist{\@tempcnta\csname ftype@#1\endcsname
-       \multiply\@tempcnta\@xxxii\advance\@tempcnta\sixt@@n
-       \@tfor \@tempa :=#2\do
-                        {\if\@tempa h\advance\@tempcnta \@ne\fi
-                         \if\@tempa t\advance\@tempcnta \tw@\fi
-                         \if\@tempa b\advance\@tempcnta 4\relax\fi
-                         \if\@tempa p\advance\@tempcnta 8\relax\fi
-         }\global\count\@currbox\@tempcnta}\@fltovf\fi
-    \global\setbox\@currbox\vbox\bgroup
-    \def\baselinestretch{1}\small\normalsize
-    \hsize\columnwidth \@parboxrestore}
+%\def\@xfloat#1[#2]{\ifhmode \@bsphack\@floatpenalty -\@Mii\else
+%    \@floatpenalty-\@Miii\fi\def\@captype{#1}\ifinner
+%      \@parmoderr\@floatpenalty\z@
+%     \else\@next\@currbox\@freelist{\@tempcnta\csname ftype@#1\endcsname
+%       \multiply\@tempcnta\@xxxii\advance\@tempcnta\sixt@@n
+%       \@tfor \@tempa :=#2\do
+%                        {\if\@tempa h\advance\@tempcnta \@ne\fi
+%                         \if\@tempa t\advance\@tempcnta \tw@\fi
+%                         \if\@tempa b\advance\@tempcnta 4\relax\fi
+%                         \if\@tempa p\advance\@tempcnta 8\relax\fi
+%         }\global\count\@currbox\@tempcnta}\@fltovf\fi
+%    \global\setbox\@currbox\vbox\bgroup
+%    \def\baselinestretch{1}\small\normalsize
+%    \hsize\columnwidth \@parboxrestore}
 
 % **************************************************************************
 % *****   Caption Definition   *********************************************
