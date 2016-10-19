@@ -5,12 +5,20 @@
     inline,
     twoside,
 ]{ieee}
+\usepackage{ieeefig}
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{amsmath}
 \usepackage{float}
+\usepackage{siunitx} % http://mirrors.ctan.org/install/macros/latex/contrib/siunitx.tds.zip
+\sisetup{
+    binary-units    = true,
+    round-mode      = places,
+    round-precision = 2,
+    output-decimal-marker = {,}
+}
 
 % Style to select only points from #1 to #2 (inclusive)
 \pgfplotsset{select coords between index/.style 2 args={

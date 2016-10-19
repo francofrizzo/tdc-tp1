@@ -1,0 +1,36 @@
+\begin{tikzpicture}
+    \begin{axis}[
+            title={},
+            xlabel={Símbolo (Dirección IP)},
+            ylabel={Cantidad de información (bit)},
+            scaled x ticks=false,
+            scaled y ticks=false,
+            width=0.45\textwidth,
+            height=0.35\textwidth,
+            legend pos=outer north east,
+            legend cell align=left,
+            bar width=1,
+            ymin=0,
+            xtick={0,...,20},
+            major tick length=0,
+            xticklabels from table={../exp/shopping.s1.information}{IP},
+            x tick label style={rotate=80,anchor=east,font=\small},
+            legend entries={
+                $H(\mathcal{S}_1) \approx \SI{\ShoppingSOneEntropy}{\bit}$
+            },
+            legend style={
+                legend cell align=left,
+                legend pos=north west
+            }
+        ]
+        \addplot[
+                ybar,
+                fill=blue!10,
+                draw=blue,
+                select coords between index={0}{20},
+                forget plot
+            ] table[x=X-Pos,y=Information]{../exp/shopping.s1.information};
+        \addplot[domain=-10:30,mark=none, blue, thick, update limits=false] {\ShoppingSOneEntropy};
+
+    \end{axis}
+\end{tikzpicture}
