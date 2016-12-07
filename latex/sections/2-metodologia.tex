@@ -18,18 +18,16 @@ escenarios que se detallan a continuación.
     en la red pública de Wi-Fi del café \emph{Starbucks} de Av. Callao y Perón.
 \end{enumerate}
 
-En los tres casos, se filtraron los resultados para considerar solo los
-paquetes relativos al protocolo ARP (\emph{Address Resolution Protocol}).
-(Esto capaz queda explicado antes).
 
-Los resultados fueron analizados utilizando conceptos de Teoría de la
+
+Las capturas fueron analizadas utilizando conceptos de Teoría de la
 Información. Para esto, en cada caso, se modelaron a partir del tráfico
 capturado las siguientes dos fuentes de información, considerando distintos
 aspectos que se deseaba estudiar:
 
 \begin{enumerate}
     \item \textbf{Fuente $\mathcal{S}$}. Consta de dos símbolos, $\lbrace
-    s_{\text{BROADCAST}},\ s_{\text{UNICAST}} \rbrace$. Cada paquete ARP
+    s_{\text{BROADCAST}},\ s_{\text{UNICAST}} \rbrace$. Cada paquete 
     capturado en la red se considera un símbolo; aquellos con destino
     \emph{broadcast} (dirección MAC \texttt{ff:ff:ff:ff:ff:ff}) corresponden
     al símbolo $s_{\text{BROADCAST}}$, mientras que los demás corresponden
@@ -38,7 +36,25 @@ aspectos que se deseaba estudiar:
     La probabilidad de la aparición de cada símbolo, y por consiguiente
     la entropía de la fuente, se calculó en base a la frecuencia relativa
     de cada uno de ellos.
+    
     \item \textbf{Fuente $\mathcal{S}_1$}. Esta fuente se modeló teniendo en
-    cuenta las direcciones IP de los paquetes ARP capturados.
+    cuenta las direcciones IP de los paquetes ARP capturados. Cada dirección de IP es un símbolo en esta fuente.
+    De todos los paquetes capturados, se retuvieron solo aquellos que cumplieran las siguientes condiciones:
+    \begin{enumerate}
+     \item fueran requests ARP (WHO-HAS?), ya que, si tomáramos las replies, tendríamos
+     un sesgo muy fuerte para el equipo que está haciendo la captura si la red está switcheada
+     o si es WiFi no abierto. Esto es porque las replies ARP son unicast, y solo llegan a los
+     equipos target si no capturamos en un lugar ``privilegiado'' de la topología de red. Además,
+     si pudiéramos capturar todas las replies IS-AT, no obtendríamos información nueva, ya que las
+     replies se corresponden con las requests (salvo las ``gratuitous'' (ver siguiente item).
+     \item no fueran ``gratuitous'' (donde target y source son la misma IP), ya que no 
+     aportan información relevante sobre la topología de la red ni reflejan el nivel de actividad de los que los envían.
+    \end{enumerate}
+
+    Para calcular la probabilidad de la aparición de cada símbolo se usó la frecuencia relativa de cada uno.
+    Se consideraron tres opciones: contar solo cuando una IP aparece como target, contar solo cuando aparece como source, o ambas. Decidimos 
+    usar esta última opción, porque quien hace una request ARP puede ser cualquier nodo, sea distinguido o no. Pero lo que queremos
+    ver es cuál (o cuáles) nodo ``habla'' más veces con otros nodos de la red.
+    
 \end{enumerate}
 
