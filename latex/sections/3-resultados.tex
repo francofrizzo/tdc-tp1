@@ -1,3 +1,5 @@
+% -*- root: ../informe.tex -*-
+
 \section{Resultados}
 
 \newread\tmp
@@ -28,7 +30,7 @@
 
 \subsection{Escenario 1 (Red cableada)}
 
-Esta captura Se realizó en los laboratorios del Departamento de Computación de la FCEyN, a través de una conexión Ethernet con el switch de un laboratorio.
+Esta captura se realizó en los laboratorios del Departamento de Computación de la FCEyN, a través de una conexión Ethernet con el switch de un laboratorio.
 
 \subsubsection{Fuente S}
 
@@ -191,10 +193,34 @@ $\mathcal{S}_1$ quedando por encima de la entropía calculada.
 
 \subsection{Escenario 3 (\emph{Starbucks})}
 
-De las tres redes estudiadas, esta es en la que se detectó una menor
-cantidad de nodos.
+Esta captura se realizó en la red pública de \emph{WiFi} de un café del centro
+de Buenos Aires. Durante el lapso de la captura, los usuarios de la red no
+fueron demasiados, lo cual se refleja en la menor cantidad de nodos detectados
+en comparación con los escenarios anteriores. No obstante, se encontraron
+resultados interesantes, ya que se observaron varias anomalías en los datos
+que, gracias a la menor cantidad de hosts, fueron más sencillas de detectar y
+estudiar; según se pudo observar, estas se produjeron tanto por
+comportamientos anómalos de algunos hosts, como por la interferencia de
+paquetes procedentes de una red distinta.
 
 \subsubsection{Fuente $\mathcal{S}$}
+
+Como puede observarse en la Figura \ref{res:esc3:fig1}, los resultados
+obtenidos para la fuente $\mathcal{S}$ son similares a los observados para el
+escenario del \emph{shopping}: los paquetes de tipo \emph{broadcast} aportan
+una cantidad considerable de información, evidenciando que son relativamente
+menos frecuentes que los de tipo \emph{unicast}. Esto se puede explicar por
+diversos motivos.
+
+Por un lado, como se trata de una red de WiFi pública, es posible capturar los
+paquetes de tipo \emph{unicast} dirigidos hacia cualquiera de sus
+\emph{hosts}; esto se puede contrastar con lo que sucede en el caso de la red
+cableada, donde el \emph{switching} impide capturar los de otros destinos.
+Además, también debido al carácter público de la red, los paquetes de tipo
+\emph{broadcast} se utilizan en general para protocolos de control (como
+\texttt{ARP}), y estos no producen demasiado \emph{overhead}, ya que las
+comunicaciones en general se dan exclusivamente entre el \emph{default gateway}
+y los demás nodos.
 
 \begin{figure}[H]
     \figdef[dim]{figures/starbucks_s_fig}
@@ -202,14 +228,20 @@ cantidad de nodos.
     \label{res:esc3:fig1}
 \end{figure}
 
-\begin{figure}[H]
-    \figdef[dim]{figures/starbucks_s1_fig}
-    \caption{Cantidad de información por símbolo y entropía de $\mathcal{S}_1$.}
-    \label{res:esc3:fig2}
-\end{figure}
+En cuanto a la entropía de la fuente $\mathcal{S}$, se observa que esta está
+relativamente lejos de ser máxima. La razón es, de nuevo, la abundancia de
+paquetes de tipo \emph{unicast}, que vuelve a la fuente bastante predecible.
+
+\subsubsection{Fuente $\mathcal{S}_1$}
 
 \begin{figure}[H]
     \figdef[dim]{figures/starbucks_arp_fig}
     \caption{Red de mensajes \texttt{ARP} para captura del \emph{Starbucks}.}
     \label{res:esc3:fig3}
+\end{figure}
+
+\begin{figure}[H]
+    \figdef[dim]{figures/starbucks_s1_fig}
+    \caption{Cantidad de información por símbolo y entropía de $\mathcal{S}_1$.}
+    \label{res:esc3:fig2}
 \end{figure}
