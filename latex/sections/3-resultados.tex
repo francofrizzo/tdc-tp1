@@ -61,8 +61,8 @@ También inferimos (a partir de los OUI de las MAC addresses) que las subredes 1
 \begin{figure}[H]
     \figdef[dim]{figures/wired_lan_arp_fig}
     \caption{Red de mensajes \texttt{ARP} para captura de red cableada.}
-     \label{res:esc1:fig2}
-\end{figure}    
+    \label{res:esc1:fig2}
+\end{figure}
 
 % Dada la fuente S1, mostrar la cantidad de información de cada símbolo comparando con la entropía de la fuente.
 
@@ -191,68 +191,25 @@ $\mathcal{S}_1$ quedando por encima de la entropía calculada.
 
 \subsection{Escenario 3 (\emph{Starbucks})}
 
-\begin{tikzpicture}[baseline]
-    \begin{axis}[
-            title={},
-            xlabel={Símbolo (Destino)},
-            ylabel={Cantidad de información},
-            scaled x ticks=false,
-            scaled y ticks=false,
-            width=0.45\textwidth,
-            height=0.35\textwidth,
-            bar width=2cm,
-            ymin=0,
-            enlarge x limits=0.65,
-            xtick=data,
-            major tick length=0,
-            xticklabels={$s_{\texttt{UNICAST}}$, $s_{\texttt{BROADCAST}}$},
-            x tick label style={rotate=80,anchor=east,font=\small},
-            legend entries={$H(\mathcal{S})$,$H_{\max}(\mathcal{S})$},
-            legend style={
-                legend cell align=left,
-                legend pos=north west
-            }
-        ]
-        \addplot[
-                ybar,
-                fill=blue!10,
-                draw=blue,
-                forget plot
-            ] table[x=IsBroadcast,y=Information]{../exp/starbucks.s.information};
-        \addplot[mark=none, blue, thick, update limits=false] {\StarbucksSEntropy};
-        \addplot[mark=none, blue, thick, dashed, update limits=false] {1};
-    \end{axis}
-\end{tikzpicture}
+De las tres redes estudiadas, esta es en la que se detectó una menor
+cantidad de nodos.
 
-\begin{tikzpicture}[baseline]
-    \begin{axis}[
-            title={},
-            xlabel={Símbolo (Dirección IP)},
-            ylabel={Cantidad de información},
-            scaled x ticks=false,
-            scaled y ticks=false,
-            width=0.45\textwidth,
-            height=0.35\textwidth,
-            legend pos=outer north east,
-            legend cell align=left,
-            ymin=0,
-            xtick=data,
-            xticklabels from table={../exp/starbucks.s1.information}{IP},
-            x tick label style={rotate=80,anchor=east,font=\small}
-        ]
-        \addplot [ybar, fill=blue!10, draw=blue] table[x=X-Pos,y=Information]
-                {../exp/starbucks.s1.information};
+\subsubsection{Fuente $\mathcal{S}$}
 
-        \coordinate (A) at (axis cs:0,\StarbucksSOneEntropy);
-        \coordinate (O1) at (rel axis cs:0,0);
-        \coordinate (O2) at (rel axis cs:1,0);
+\begin{figure}[H]
+    \figdef[dim]{figures/starbucks_s_fig}
+    \caption{Cantidad de información por símbolo y entropía de $\mathcal{S}$.}
+    \label{res:esc3:fig1}
+\end{figure}
 
-        \draw [blue, thick] (A -| O1) -- (A -| O2);
-
-    \end{axis}
-\end{tikzpicture}
+\begin{figure}[H]
+    \figdef[dim]{figures/starbucks_s1_fig}
+    \caption{Cantidad de información por símbolo y entropía de $\mathcal{S}_1$.}
+    \label{res:esc3:fig2}
+\end{figure}
 
 \begin{figure}[H]
     \figdef[dim]{figures/starbucks_arp_fig}
-    \caption{Red de mensajes \texttt{ARP} para captura del Starbucks.}
+    \caption{Red de mensajes \texttt{ARP} para captura del \emph{Starbucks}.}
+    \label{res:esc3:fig3}
 \end{figure}
