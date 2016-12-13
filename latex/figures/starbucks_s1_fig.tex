@@ -13,7 +13,7 @@
             ymin=0,
             xtick={0,...,20},
             major tick length=0,
-            xticklabels from table={../exp/shopping.s1.information}{IP},
+            xticklabels from table={../exp/starbucks.s1.information}{IP},
             x tick label style={rotate=80,anchor=east,font=\small},
             legend entries={
                 $H(\mathcal{S}_1) \approx \SI{\StarbucksSOneEntropy}{\bit}$
@@ -29,7 +29,7 @@
                 draw=blue,
                 select coords between index={0}{20},
                 forget plot
-            ] table[x=X-Pos,y=Information]{../exp/shopping.s1.information};
+            ] table[x=X-Pos,y=Information]{../exp/starbucks.s1.information};
         \addplot[domain=-10:30,mark=none, blue, thick, update limits=false] {\StarbucksSOneEntropy};
 
     \end{axis}

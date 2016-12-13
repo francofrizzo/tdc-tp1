@@ -205,43 +205,56 @@ paquetes procedentes de una red distinta.
 
 \subsubsection{Fuente $\mathcal{S}$}
 
-Como puede observarse en la Figura \ref{res:esc3:fig1}, los resultados
+Como puede observarse en la Figura \ref{res:esc3:s}, los resultados
 obtenidos para la fuente $\mathcal{S}$ son similares a los observados para el
-escenario del \emph{shopping}: los paquetes de tipo \emph{broadcast} aportan
-una cantidad considerable de información, evidenciando que son relativamente
-menos frecuentes que los de tipo \emph{unicast}. Esto se puede explicar por
-diversos motivos.
+escenario del \emph{shopping}. La entropía de la fuente está relativamente
+lejos de ser máxima, indicando que se trata de una fuente bastante predecible.
+Esto se debe a que los paquetes de tipo \emph{broadcast} son bastante menos
+frecuentes que los de tipo \emph{unicast}, aportando una cantidad de
+información considerablemente mayor.
 
-Por un lado, como se trata de una red de WiFi pública, es posible capturar los
-paquetes de tipo \emph{unicast} dirigidos hacia cualquiera de sus
-\emph{hosts}; esto se puede contrastar con lo que sucede en el caso de la red
-cableada, donde el \emph{switching} impide capturar los de otros destinos.
-Además, también debido al carácter público de la red, los paquetes de tipo
+\begin{figure}[H]
+    \figdef[dim]{figures/starbucks_s_fig}
+    \caption{Cantidad de información por símbolo y entropía de $\mathcal{S}$.}
+    \label{res:esc3:s}
+\end{figure}
+
+Este fenómeno se puede explicar por diversos motivos. Por un lado, como se
+trata de una red de WiFi pública, es posible capturar los paquetes de tipo
+\emph{unicast} dirigidos hacia cualquiera de sus \emph{hosts}; esto se puede
+contrastar con lo que sucede en el caso de la red cableada, donde el
+\emph{switching} impide capturar los de otros destinos. Además, también debido
+al carácter público de la red, los paquetes de tipo
 \emph{broadcast} se utilizan en general para protocolos de control (como
 \texttt{ARP}), y estos no producen demasiado \emph{overhead}, ya que las
 comunicaciones en general se dan exclusivamente entre el \emph{default gateway}
 y los demás nodos.
 
-\begin{figure}[H]
-    \figdef[dim]{figures/starbucks_s_fig}
-    \caption{Cantidad de información por símbolo y entropía de $\mathcal{S}$.}
-    \label{res:esc3:fig1}
-\end{figure}
-
-En cuanto a la entropía de la fuente $\mathcal{S}$, se observa que esta está
-relativamente lejos de ser máxima. La razón es, de nuevo, la abundancia de
-paquetes de tipo \emph{unicast}, que vuelve a la fuente bastante predecible.
-
 \subsubsection{Fuente $\mathcal{S}_1$}
+
+La figura \ref{res:esc3:graph} representa a través de un grafo las
+comunicaciones entre nodos a partir de paquetes \texttt{ARP}. Al igual que
+en los escenarios anteriores, el tamaño de cada nodo es proporcional a su
+frecuencia relativa. Una primera mirada rápida revela la presencia de tres
+componentes conexas independientes, lo que \emph{a priori} podría significar
+que se capturaron paquetes procedentes de tres redes distintas.
 
 \begin{figure}[H]
     \figdef[dim]{figures/starbucks_arp_fig}
     \caption{Red de mensajes \texttt{ARP} para captura del \emph{Starbucks}.}
-    \label{res:esc3:fig3}
+    \label{res:esc3:graph}
 \end{figure}
+
+El modelo empleado para la fuente $\mathcal{S}_1$ permitió detectar 14 nodos,
+de los cuales 2 fueron indicados como nodos distinguidos, como puede verse
+en la Figura \ref{res:esc3:s1}.
 
 \begin{figure}[H]
     \figdef[dim]{figures/starbucks_s1_fig}
     \caption{Cantidad de información por símbolo y entropía de $\mathcal{S}_1$.}
-    \label{res:esc3:fig2}
+    \label{res:esc3:s1}
 \end{figure}
+
+Estos dos nodos distinguidos, los de \texttt{IP}s \texttt{100.73.63.254} y
+\texttt{100.73.57.99}, pertenecen ambos a la misma componente conexa de la
+red, y muestran un nivel de actividad similar. 
