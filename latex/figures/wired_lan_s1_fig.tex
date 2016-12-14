@@ -16,8 +16,8 @@
         ]
         \addplot [
                 ybar,
-                fill=blue!10,
-                draw=blue,
+                fill=violet!10,
+                draw=violet,
                 select coords between index={0}{20}
             ] table[x=X-Pos,y=Information]{../exp/wired_lan.s1.information};
 
@@ -25,7 +25,7 @@
         \coordinate (O1) at (rel axis cs:0,0);
         \coordinate (O2) at (rel axis cs:1,0);
 
-        \draw [blue, thick] (A -| O1) -- (A -| O2);
+        \draw [violet, thick] (A -| O1) -- (A -| O2);
 
     \end{axis}
 \end{tikzpicture}

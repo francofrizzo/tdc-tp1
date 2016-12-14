@@ -25,12 +25,12 @@
         ]
         \addplot[
                 ybar,
-                fill=blue!10,
-                draw=blue,
+                fill=teal!10,
+                draw=teal,
                 select coords between index={0}{20},
                 forget plot
             ] table[x=X-Pos,y=Information]{../exp/starbucks.s1.information};
-        \addplot[domain=-10:30,mark=none, blue, thick, update limits=false] {\StarbucksSOneEntropy};
+        \addplot[domain=-10:30,mark=none, teal, thick, update limits=false] {\StarbucksSOneEntropy};
 
     \end{axis}
 \end{tikzpicture}

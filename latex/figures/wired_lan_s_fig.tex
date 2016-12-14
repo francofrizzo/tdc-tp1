@@ -22,11 +22,11 @@
         ]
         \addplot[
                 ybar,
-                fill=blue!10,
-                draw=blue,
+                fill=violet!10,
+                draw=violet,
                 forget plot
             ] table[x=IsBroadcast,y=Information]{../exp/wired_lan.s.information};
-        \addplot[mark=none, blue, thick, update limits=false] {\WiredLanSEntropy};
-        \addplot[mark=none, blue, thick, dashed, update limits=false] {1};
+        \addplot[mark=none, violet, thick, update limits=false] {\WiredLanSEntropy};
+        \addplot[mark=none, violet, thick, dashed, update limits=false] {1};
     \end{axis}
 \end{tikzpicture}

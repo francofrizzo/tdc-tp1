@@ -25,11 +25,11 @@
         ]
         \addplot[
                 ybar,
-                fill=blue!10,
-                draw=blue,
+                fill=teal!10,
+                draw=teal,
                 forget plot
             ] table[x=IsBroadcast,y=Information]{../exp/starbucks.s.information};
-        \addplot[mark=none, blue, thick, update limits=false] {\StarbucksSEntropy};
-        \addplot[mark=none, blue, thick, dashed, update limits=false] {1};
+        \addplot[mark=none, teal, thick, update limits=false] {\StarbucksSEntropy};
+        \addplot[mark=none, teal, thick, dashed, update limits=false] {1};
     \end{axis}
 \end{tikzpicture}
