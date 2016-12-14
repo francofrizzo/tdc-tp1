@@ -198,14 +198,14 @@ $\mathcal{S}_1$ quedando por encima de la entropía calculada.
 \subsection{Escenario 3 (\emph{Starbucks})}
 
 Esta captura se realizó en la red pública de \emph{WiFi} de un café del centro
-de Buenos Aires. Durante el lapso de la captura, los usuarios de la red no
-fueron demasiados, lo cual se refleja en la menor cantidad de nodos detectados
-en comparación con los escenarios anteriores. No obstante, se encontraron
-resultados interesantes, ya que se observaron varias anomalías en los datos
-que, gracias a la menor cantidad de hosts, fueron más sencillas de detectar y
-estudiar; según se pudo observar, estas se produjeron tanto por
-comportamientos anómalos de algunos hosts, como por la interferencia de
-paquetes procedentes de una red distinta.
+de Buenos Aires. La duración de la captura fue de 12 minutos y 18 segundos.
+Durante este lapso, los usuarios de la red no fueron muy numerosos, lo cual se
+refleja en la menor cantidad de nodos detectados en comparación con los
+escenarios anteriores. No obstante, se encontraron resultados interesantes, ya
+que se observaron varias anomalías en los datos que, gracias a la menor
+cantidad de hosts, fueron más sencillas de detectar y estudiar; según se pudo
+observar, estas se produjeron tanto por comportamientos anómalos de algunos
+hosts, como por la interferencia de paquetes procedentes de una red distinta.
 
 \subsubsection{Fuente $\mathcal{S}$}
 
@@ -291,14 +291,54 @@ Una consecuencia de haber capturado paquetes de más de una red, agravada por
 el comportamiento anómalo recién descripto, es que los nodos de las demás
 componentes conexas fueron ignorados por completo por el método de detección
 de nodos distinguidos. Para poder extraer mejores conclusiones, decidimos
-aplicarlo sobre una nueva fuente $\mathcal{S}_1'$, resultante de
-restringir la fuente $\mathcal{S}_1$ a los nodos de la otra componente con
-topología estrellada, es decir, la que tiene como centro al \emph{host}
-\texttt{10.251.9.1}. La Figura \ref{res:esc3:s1prime} muestra los resultados
-obtenidos.
+aplicarlo sobre una nueva fuente $\mathcal{S}_1'$, resultante de restringir la
+fuente $\mathcal{S}_1$ a los nodos de la componente que tiene como centro al
+\emph{host} \texttt{10.251.9.1}, que es la que tiene mayor cantidad de
+\emph{hosts} (8 en total). La Figura \ref{res:esc3:s1prime} muestra los
+resultados obtenidos.
 
 \begin{figure}[H]
     \figdef[dim]{figures/starbucks_s1prime_fig}
     \caption{Cantidad de información por símbolo y entropía de $\mathcal{S}_1'$.}
     \label{res:esc3:s1prime}
 \end{figure}
+
+Como puede verse en el grafo, la componente analizada también tiene topología
+estrellada, y es razonable suponer que el nodo central, que aparece como
+distinguido, se trata del \emph{gateway} de la red; esto queda corroborado con
+un sencillo análisis del tráfico mantenido con los demás nodos. No obstante,
+nuevamente aparece un segundo nodo distinguido, en este caso el de dirección
+\texttt{IP} \texttt{10.251.9.160}. Al analizar en detalle el comportamiento de
+este \emph{host}, puede verse que esto también se debe a un comportamiento
+anómalo: en varias ocasiones generó ráfagas de un gran número de
+\emph{requests} consecutivas en un corto período de tiempo (menos de un
+segundo), aumentando considerablemente su cantidad de apariciones con respecto
+a los demás nodos.
+
+Por último, en la red pueden verse otros dos nodos, que forman una componente
+independiente. Ambos tienen una única aparición en la captura, cuando el
+nodo \texttt{100.73.22.12} hace un \emph{request} \texttt{ARP} por la
+\texttt{IP} \texttt{100.73.22.255}, sin obtener respuesta. Así, decidimos
+desestimar estos nodos del análisis, por considerar que no aportan información
+relevante y que los datos de la captura realizada son insuficientes para
+extraer conclusiones sobre ellos.
+
+Teniendo en cuenta el análisis anterior, podemos decir que en este escenario,
+varias de las características de la captura jugaron en contra del desempeño
+óptimo del criterio utilizado para distinguir nodos. En primer lugar, la
+interferencia entre paquetes de dos redes distintas ocasionó resultados
+sesgados hacia una de las redes, que presentaba más tráfico que la otra.
+Además, dentro de cada una de las dos redes se distinguieron dos nodos, de
+los cuales claramente uno solo cumplía el rol de \emph{default gateway} de
+la red, mientras que el otro vio significativamente incrementada su
+importancia debido a comportamientos anómalos. Es decir, los resultados
+arrojados por la metodología empleada no fueron precisos en este caso.
+
+No obstante, es importante poner esto en perspectiva. En primer lugar, se
+trata de una red inalámbrica, donde la poca fiabilidad del medio juega en
+contra de la calidad de las capturas, que además se realizaron sin conocer la
+ubicación física de los \emph{access points}. Es decir que, por ejemplo,
+podrían haber quedado paquetes sin detectar de alguna de las redes. Además, de
+haberse realizado una captura de mayor duración, probablemente algunos de los
+comportamientos anómalos se habrían visto mitigados, obteniendo así resultados
+de mejor calidad.
