@@ -2,24 +2,91 @@
 
 \section{Conclusiones}
 
+A continuación, presentamos algunas de las conclusiones generales acerca de
+los resultados obtenidos y la metodología empleada, a las que arribamos luego
+de comparar los análisis de cada una de las tres redes estudiadas.
+
 % De haber diferentes tecnologías entre las redes capturadas, ¿Aprecia alguna
     % diferencia desde el punto de vista de las fuentes de información
     % analizadas?
-    
- La fuente de información S cambia notablemente según el tipo de tecnología de la red donde se efectúa la captura. En el caso de redes switcheadas, se ve una proporción mucho mayor de paquetes broadcast que de unicast. En cambio, si la tecnología de la red es de WiFi abierto, se pueden capturar muchos más paquetes unicast. Lo mismo sucedería si la red cableada tuviera un hub en lugar de un switch.
- 
- La fuente de información $S_1$, en cambio, no presenta diferencias según el tipo de tecnología, ya que aquí se analizan solo paquetes broadcast.
- 
+
+Uno de los ejes de comparación interesante se origina a partir de las
+diferentes tecnologías subyacentes a las redes analizadas. En este sentido,
+podemos notar que la fuente de información $\mathcal{S}$ se ve notablemente
+afectada por este factor. En el caso de la red \emph{switcheada}, se ve una
+proporción mucho mayor de paquetes \emph{broadcast} que de \emph{unicast}, ya
+que estos últimos son \emph{forwardeados} únicamente hacia su destino,
+impidiendo ser capturados desde un \emph{host} arbitrario. En cambio, si la
+tecnología de la red es de \emph{WiFi} abierto, se pueden capturar muchos más
+paquetes \emph{unicast}. Lo mismo sucedería si la red cableada tuviera un
+\emph{hub} en lugar de un \emph{switch}. La Figura \ref{general:s} muestra
+una comparación entre la cantidad de información aportada, en cada red,
+por los símbolos $s_{\mathtt{UNICAST}}$ y $s_{\mathtt{BROADCAST}}$.
+
+\begin{figure}[H]
+    \figdef[dim]{figures/general_s_fig}
+    \caption{Cantidad de información por símbolo para la fuente $\mathcal{S}$
+        de cada red.}
+    \label{general:s}
+\end{figure}
+
+La fuente de información $\mathcal{S}_1$, en cambio, no presenta diferencias
+evidentes según el tipo de tecnología, ya que aquí se analizan solo paquetes
+\emph{broadcast}, que en ambos casos son capturados por todos los
+\emph{hosts}. Los diferentes resultados obtenidos para esta fuente son mejor
+explicados por las diferentes características topológicas y el tipo de
+actividad de las redes.
+
 % De haber diferentes tamaños de redes, ¿Aprecia alguna diferencia desde el
     % punto de vista de las fuentes de información analizadas?
-% ¿Que importancia tiene la entropía en la capacidad de detectar símbolos
-    % (nodos/hosts) distinguidos?
 % ¿Hay alguna relación entre la entropía y la cantidad de nodos (distinguidos
     % y no distinguidos)?
 
+Otro aspecto interesante a comparar tiene que ver con los distintos tamaños de
+redes analizadas. En cuanto a la fuente $\mathcal{S}$, como posee una cantidad
+fija de símbolos (dos), su entropía máxima es siempre 1, independientemente de
+la cantidad de \emph{hosts} de la red. Además, si bien los resultados obtenidos
+para esta fuente en las tres capturas son claramente distintos, las
+características disímiles de las redes hacen que sea difícil analizar esto en
+términos de la cantidad de nodos cada una; creemos este hecho se explica mejor
+a partir de otras características, por ejemplo, las ya mencionadas diferencias
+en las tecnologías subyacentes.
+
+En cuanto a la fuente $\mathcal{S}_1$, sí se observa una clara relación
+con la cantidad de nodos de cada red; como a cada nodo le corresponde un
+símbolo en esta fuente, una mayor cantidad de nodos incrementa
+la cantidad de información que aporta cada uno, y por consiguiente, también la
+entropía de la fuente. En la Figura \ref{general:entropy_vs_nodes} puede
+notarse esta relación.
+
 \begin{figure}[H]
     \figdef[dim]{figures/general_entropy_vs_nodes}
-    % \caption{Cantidad de información por símbolo y entropía de $\mathcal{S}_1'$.}
-    % \label{res:esc3:s1prime}
+    \caption{Entropía de $\mathcal{S}_1$ según la cantidad de nodos.}
+    \label{general:entropy_vs_nodes}
 \end{figure}
 
+En términos teóricos, podría esperarse también que la cantidad de nodos
+distinguidos por sobre el total afecte a la entropía de la fuente; a más nodos
+destacados, la fuente se aleja más de una fuente equiprobable y se vuelve
+menos predecible, por lo que su entropía debería aumentar. No obstante, es
+difícil corroborar esta hipótesis con los experimentos llevados a cabo, ya que
+hay en juego demasiados factores que afectan a la entropía de una manera más
+drástica.
+
+% ¿Que importancia tiene la entropía en la capacidad de detectar símbolos
+    % (nodos/hosts) distinguidos?
+
+El método desarrollado para la detección de nodos distinguidos, basado en la
+entropía de la fuente $\mathcal{S}_1$, dio resultados dispares. En el caso de
+la red del \emph{shopping}, que posee una cantidad bastante grande de nodos
+pero una topología sencilla, el resultado obtenido fue muy preciso y permitió
+detectar al \emph{default gateway} con gran claridad. En el escenario de la
+red cableada, que tiene una topología mucho más compleja, se detectaron muchos
+nodos distinguidos; si bien algunos tienen claramente una función destacada
+(aunque no necesariamente la de \emph{default gateways}), en otros este no
+parece ser el caso, por lo que se hace necesario complementar el método con
+información adicional sobre la estructura de la red. Por último, en el caso de
+la captura realizada en el café, el resultado fue muy inexacto, ya que se vio
+fuertemente afectado por la presencia de paquetes de más de una red y por
+comportamientos anómalos de alguos de los \emph{hosts}. Claramente, el método
+aporta información útil, pero no es una solución precisa en el caso general.
