@@ -11,13 +11,13 @@ Se realizaron capturas de tráfico en tres redes redes diferentes, en los tres
 escenarios que se detallan a continuación.
 
 \begin{enumerate}
-    \item \textbf{Red cableada}. Realizamos esta captura en la red Ethernet
+    \item \textbf{Red cableada}. Realizamos esta captura en la red \emph{Ethernet}
     de los laboratorios del Departamento de Computación (FCEyN, UBA). Se trata
     de una red grande y con bastante tráfico.
     \item \textbf{Red pública de un shopping}. Capturamos también el tráfico
-    de la red Wi-Fi pública del \emph{shopping} Unicenter.
+    de la red \emph{Wi-Fi} pública del \emph{shopping} Unicenter.
     \item \textbf{Red pública de un café}. Por último, realizamos una captura
-    en la red pública de Wi-Fi del café \emph{Starbucks} de Av. Callao y Perón.
+    en la red pública de \emph{Wi-Fi} del café \emph{Starbucks} de Av. Callao y Perón.
 \end{enumerate}
 
 Las capturas fueron analizadas utilizando conceptos de Teoría de la
@@ -29,7 +29,7 @@ aspectos que se deseaba estudiar:
     \item \textbf{Fuente $\mathcal{S}$}. Consta de dos símbolos, $\lbrace
     s_{\text{BROADCAST}},\ s_{\text{UNICAST}} \rbrace$. Cada paquete
     capturado en la red se considera un símbolo; aquellos con destino
-    \emph{broadcast} (dirección MAC \texttt{ff:ff:ff:ff:ff:ff}) corresponden
+    \emph{broadcast} (dirección \texttt{MAC} \texttt{ff:ff:ff:ff:ff:ff}) corresponden
     al símbolo $s_{\text{BROADCAST}}$, mientras que los demás corresponden
     al símbolo $s_{\text{UNICAST}}$.
 
@@ -38,7 +38,7 @@ aspectos que se deseaba estudiar:
     de cada uno de ellos.
 
     \item \textbf{Fuente $\mathcal{S}_1$}. Esta fuente se modeló teniendo en
-    cuenta solamente los paquetes \texttt{ARP} capturados. Cada dirección \texttt{IP} 
+    cuenta solamente los paquetes \texttt{ARP} capturados. Cada dirección \texttt{IP}
     hallada en estos paquetes es un símbolo en esta fuente. De
     todos los paquetes capturados, se tuvieron en cuenta solo aquellos que
     cumplieran las siguientes condiciones:
@@ -46,7 +46,7 @@ aspectos que se deseaba estudiar:
         \item Fueran \emph{requests} \texttt{ARP} (\texttt{WHO-HAS}).
         Decidimos no tener en cuenta las \emph{replies}, dado que de
         considerarlas tendríamos un sesgo muy fuerte para el equipo que está
-        haciendo la captura si la red está switcheada o si es WiFi no abierto.
+        haciendo la captura si la red está switcheada o si es \emph{Wi-Fi} no abierto.
         Esto se debe a que las \emph{replies} \texttt{ARP} son \emph{unicast},
         y solo llegan a los equipos \texttt{target}, a menos que capturemos en
         un lugar ``privilegiado'' de la topología de la red. Además, incluso
@@ -69,7 +69,7 @@ aspectos que se deseaba estudiar:
         \item tener en cuenta ambos casos.
     \end{enumerate}
     Decidimos usar esta última opción, porque quien inicia una \emph{request}
-    ARP puede ser cualquier nodo, sea distinguido o no. Como nuestro objetivo
+    \texttt{ARP} puede ser cualquier nodo, sea distinguido o no. Como nuestro objetivo
     es ver cuáles nodos ``hablan'' más veces con otros nodos de la red, y al
     no tener en cuenta las \emph{replies}, mirando solo el \emph{target} o el
     \emph{source} estaríamos perdiendo información relevante.
