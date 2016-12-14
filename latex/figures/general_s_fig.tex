@@ -1,0 +1,39 @@
+\begin{tikzpicture}
+    \begin{axis}[
+            ybar,
+            title={},
+            xlabel={Símbolo (Destino)},
+            ylabel={Cantidad de información (bit)},
+            width=0.45\textwidth,
+            height=0.35\textwidth,
+            bar width=.5cm,
+            ymin=0,
+            enlarge x limits=0.65,
+            xtick=data,
+            ymajorgrids,
+            xticklabels={$s_{\texttt{UNICAST}}$, $s_{\texttt{BROADCAST}}$},
+            x tick label style={rotate=80,anchor=east,font=\small},
+            legend entries={
+                Esc. 1 (Red cableada),
+                Esc. 2 (Red del \emph{shopping}),
+                Esc. 3 (Red del \emph{Starbucks}),
+            },
+            legend style={
+                legend cell align=left,
+                legend pos=north west
+            }
+        ]
+        \addplot[
+                fill=violet!10,
+                draw=violet,
+            ] table[x=IsBroadcast,y=Information]{../exp/wired_lan.s.information};
+        \addplot[
+                fill=blue!10,
+                draw=blue,
+            ] table[x=IsBroadcast,y=Information]{../exp/shopping.s.information};
+        \addplot[
+                fill=teal!10,
+                draw=teal,
+            ] table[x=IsBroadcast,y=Information]{../exp/starbucks.s.information};
+    \end{axis}
+\end{tikzpicture}
