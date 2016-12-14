@@ -20,8 +20,6 @@ escenarios que se detallan a continuación.
     en la red pública de Wi-Fi del café \emph{Starbucks} de Av. Callao y Perón.
 \end{enumerate}
 
-
-
 Las capturas fueron analizadas utilizando conceptos de Teoría de la
 Información. Para esto, en cada caso, se modelaron a partir del tráfico
 capturado las siguientes dos fuentes de información, considerando distintos
@@ -76,7 +74,17 @@ aspectos que se deseaba estudiar:
     no tener en cuenta las \emph{replies}, mirando solo el \emph{target} o el
     \emph{source} estaríamos perdiendo información relevante.
 
-    \textcolor{red}{\textbf{TODO: Explicar cómo se identifican los nodos distinguidos.}}
+    Esta fuente se modeló con el objetivo de estudiar la posibilidad de
+    detectar, a partir de la misma, \emph{nodos distinguidos}: aquellos que
+    tuvieran un rol destacado en la red. El criterio utilizado fue seleccionar
+    como nodos distinguidos a aquellos que aportaran una cantidad de
+    información menor que la entropía de la fuente; es decir, menor que la
+    media. Desde una interpretación intuitiva, estos son los nodos cuya
+    aparición es predecible y no causa ninguna ``sorpresa''. Resulta
+    razonable, entonces, señalarlos como los nodos dominantes de la red, al
+    menos desde el punto de vista del protocolo \texttt{ARP}. Los experimentos
+    realizados permiten contrastar los resultados arrojados por este criterio
+    con el conocimiento disponible acerca de la topología y estructura de las
+    redes estudiadas.
 
 \end{enumerate}
-
