@@ -36,29 +36,28 @@
 
 Esta captura se realizó en los laboratorios del Departamento de Computación de la FCEyN, a través de una conexión Ethernet con el switch de un laboratorio.
 
-\subsubsection{Fuente S}
-
-En esta red, se capturaron muchos más paquetes broadcast que unicast. Se puede ver en la figura \ref{res:esc1:fig1}
-que los paquetes unicast aportan más información que los broadcast. Esto se explica porque se trata de una red switcheada. Por lo tanto, los paquetes unicast que tienen como destino otros hosts, no llegan al equipo de captura. Sin embargo, como en la red hay una cantidad elevada de hosts (207), se captura una gran cantidad de broadcasts. Como el equipo de captura no se usó para generar una cantidad relevante de tráfico, se capturó más tráfico broadcast de la red, que el tráfico unicast proveniente o destinado a nuestro host de captura.
+En esta red se capturaron muchos más paquetes broadcast que unicast. Se puede ver en la figura \ref{res:esc1:fig1}
+que los paquetes unicast aportan más información que los broadcast. Esto se explica porque se trata de una red switcheada. Por lo tanto, los paquetes unicast que tienen como destino otros hosts, no llegan al equipo de captura. Sin embargo, como en la red hay una cantidad elevada de hosts (207), se captura una gran cantidad de broadcasts. Como el equipo de captura no se usó para generar una cantidad relevante de tráfico, se capturó más tráfico broadcast de la red (aprox 70\%), que el tráfico unicast proveniente o destinado a nuestro host de captura.
 
 % ¿La entropía de la fuente S es máxima? ¿Que sugiere esto acerca de la red? ¿Está relacionado con el overhead impuesto por la red debido a los protocolos de control (i.e.: ARP)?
 
-Como es posible observar en la Figura \ref{res:esc1:fig1}, la entropía de la fuente S no es máxima.
+Como es posible observar en la Figura \ref{res:esc1:fig1}, la entropía de la fuente S no es máxima. 
 
 
 \begin{figure}[h]
 	\figdef[dim]{figures/wired_lan_s_fig}
-	%\caption{Cantidad de información por símbolo y entropía de S en red cableada.}
+	\caption{Cant. de información y entropía de S en red cableada.}
     \label{res:esc1:fig1}
 \end{figure}
 
-En la figura \ref{res:esc1:fig2} se muestra un grafo de la red de mensajes ARP que subyace en esta red. Es notable que el grafo no es conexo, sino que se encuentran varias componentes conexas. Esto se debe a que si bien cada laboratorio tiene su propia subred, están todas en la misma VLAN, y por ende, en el mismo broadcast domain (capa 2). La subred de cada laboratorio es 10.2.X.0/24, donde X es el número de laboratorio, y el gateway de cada red es 10.2.X.254. Como vemos en el gráfico, cada componente conexa se corresponde con cada laboratorio, donde las distintas PCs se conectan con el gateway de esa subred.
+En la figura \ref{res:esc1:fig2} se muestra un grafo de la red de mensajes ARP que subyace en esta red. Es notable que el grafo no es conexo, sino que se encuentran varias componentes conexas. Esto se debe a que si bien cada laboratorio tiene su propia subred, están todas en la misma VLAN, y por ende, en el mismo broadcast domain (capa 2). La subred de cada laboratorio es 10.2.X.0/24, donde X es el número de laboratorio, y el gateway de cada red es 10.2.X.254. Como vemos en el gráfico, cada componente conexa se corresponde con cada laboratorio, donde las distintas PCs se conectan con el gateway de esa subred, que es el que está en el centro de cada componente conexa.
 
-También inferimos (a partir de los OUI de las MAC addresses) que las subredes 10.2.20X.0/24 son de los Access Points de los laboratorios.
+Mirando con más detalle el tráfico ARP de la red, se ven algunas cosas inesperadas en la componente conexa que tiene al nodo \texttt{10.2.203.254} en su centro. Nuestra sospecha es que esos nodos interconectados son los equipos conectados por WiFi, y que el nodo central sería el gateway de esa red.
 
 % ¿Cómo es el tráfico ARP en la red? ¿Se pueden distinguir nodos? ¿Cuántos? ¿Indica algo la cantidad? 
 % ¿Se les puede adjudicar alguna función específica? ¿Hay evidencia parcial que sugiera que algún nodo
 % funciona de forma anómala y/o no esperada?
+
 
 %¿Existe una correspondencia entre lo que se conoce de la red y los nodos distinguidos detectados por
 %la herramienta? ¿Es posible usar el criterio de distinción propuesto como método para descubrir el/los
@@ -71,6 +70,16 @@ También inferimos (a partir de los OUI de las MAC addresses) que las subredes 1
 \end{figure}
 
 % Dada la fuente S1, mostrar la cantidad de información de cada símbolo comparando con la entropía de la fuente.
+
+
+El modelo que se empleó para analizar la fuente $S_1$ arrojó una gran cantidad de nodos distinguidos: 12. En la figura \ref{res:esc1:fig3} podemos ver graficados a los 21 nodos que aportan menos información. Como se ve, entre ellos se encuentran los gateways (que terminan en .254), pero también se encuentran otros nodos inesperados:
+
+\begin{enumerate}
+% \item \texttt{10.2.1.250}: 
+ \item \texttt{10.2.0.249}, \texttt{10.2.7.249} y \texttt{10.2.3.249}: todas las IPs que vimos con 10.2.X.249 son de la misma MAC address, es decir que son del mismo equipo. Por lo que vimos, se trata de uno de los servidores Active Directory de la red. Funcionan también como servidores DNS de la red local.
+ \item 10.2.0.67, 10.2.0.64, 10.2.0.65: creemos que se trata de servidores, pero no tenemos información suficiente para confirmarlo.
+ \item 10.2.1.13, 10.2.7.5, 10.2.201.234, 10.2.200.14 y 10.2.2.10: no sabemos por qué figuran como nodos destacados, no encontramos indicios claros sobre su función en la red. Puede tratarse de una anomalía.
+\end{enumerate}
 
 \begin{figure}[h]
 	\figdef[dim]{figures/wired_lan_s1_fig}
