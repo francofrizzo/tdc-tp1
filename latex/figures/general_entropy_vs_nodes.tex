@@ -1,0 +1,29 @@
+% -*- root: ../informe.tex -*-
+
+\begin{tikzpicture}
+    \begin{axis}[
+            title={},
+            xlabel={Cantidad de nodos},
+            ylabel={Entropía de la fuente $\mathcal{S}_1$},
+            width=0.45\textwidth,
+            height=0.35\textwidth,
+            ymin=0,
+            xmin=0,
+            minor x tick num=4,
+            minor y tick num=1,
+            grid=both,
+            legend entries={
+                Esc. 1 (Red cableada),
+                Esc. 2 (Red del \emph{shopping}),
+                Esc. 3 (Red del \emph{Starbucks}),
+            },
+            legend style={
+                legend cell align=left,
+                legend pos=north west
+            }
+        ]
+        \addplot[mark=*,only marks,color=violet] coordinates {(\WiredLanNodeCount,\WiredLanSOneEntropy)};
+        \addplot[mark=*,only marks,color=blue] coordinates {(\ShoppingNodeCount,\ShoppingSOneEntropy)};
+        \addplot[mark=*,only marks,color=teal] coordinates {(\StarbucksNodeCount,\StarbucksSOneEntropy)};
+    \end{axis}
+\end{tikzpicture}
